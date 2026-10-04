@@ -1,0 +1,46 @@
+# C# build output and local IDE state
+**/[Bb]in/
+**/[Oo]bj/
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+*.sln.docstates
+*.DotSettings.user
+*.pdb
+*.mdb
+*.log
+*.tmp
+
+# Unity caches and local settings
+/MinaHaUnityProject/[Ll]ibrary/
+/MinaHaUnityProject/[Tt]emp/
+/MinaHaUnityProject/[Ll]ogs/
+/MinaHaUnityProject/[Uu]ser[Ss]ettings/
+/MinaHaUnityProject/MemoryCaptures/
+/MinaHaUnityProject/Recordings/
+/MinaHaUnityProject/Build/
+/MinaHaUnityProject/Builds/
+/MinaHaUnityProject/AssetBundles/
+
+# Unity-generated editor projects (keep the real mod solution/project)
+/MinaHaUnityProject/*.csproj
+/MinaHaUnityProject/*.sln
+/MinaHaUnityProject/*.unityproj
+
+# Generated release binaries; keep manifest, documentation and soundbank assets
+/Build/plugins/*.dll
+/Build/plugins/*.pdb
+/Build/plugins/AssetBundles/
+/Build/*.zip
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local environment files
+.env
+.env.*
+!.env.example
