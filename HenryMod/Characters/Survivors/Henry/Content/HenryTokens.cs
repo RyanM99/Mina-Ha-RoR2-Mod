@@ -48,6 +48,8 @@ namespace HenryMod.Survivors.Henry
             #region Primary
             Language.Add(prefix + "PRIMARY_SLASH_NAME", "Sword");
             Language.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Tokens.agilePrefix + $"Swing forward for <style=cIsDamage>{100f * HenryStaticValues.swordDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "PRIMARY_GUN_NAME", "New Money");
+            Language.Add(prefix + "PRIMARY_GUN_DESCRIPTION", Tokens.agilePrefix + $"Fire a pistol for <style=cIsDamage>{100f * HenryStaticValues.gunDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Secondary
@@ -63,6 +65,8 @@ namespace HenryMod.Survivors.Henry
             #region Special
             Language.Add(prefix + "SPECIAL_BOMB_NAME", "Bomb");
             Language.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Throw a bomb for <style=cIsDamage>{100f * HenryStaticValues.bombDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "SPECIAL_RAKE_NAME", "Rake");
+            Language.Add(prefix + "SPECIAL_RAKE_DESCRIPTION", $"Swing a rake for <style=cIsDamage>{100f * HenryStaticValues.rakeDamageCoefficient}% damage</style> + <style=cIsDamage>{100f * HenryStaticValues.rakeMissingHealthDamagePercent}% of the enemies missing health</style>. Killing an enemy heals you for <style=cIsHealing>{100f * HenryStaticValues.rakeHealOnKillPercent}% of your max health</style>.");
             #endregion
 
             #region Achievements

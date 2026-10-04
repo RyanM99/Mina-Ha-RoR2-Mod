@@ -13,6 +13,10 @@ namespace HenryMod.Survivors.Henry
             Modules.Content.AddEntityState(typeof(Roll));
 
             Modules.Content.AddEntityState(typeof(ThrowBomb));
+
+            Modules.Content.AddEntityState(typeof(NewMoney));
+
+            Modules.Content.AddEntityState(typeof(Rake));
         }
     }
 }

@@ -15,6 +15,7 @@ namespace HenryMod
     //[BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
+    [BepInDependency(R2API.DamageAPI.PluginGUID)]
     public class HenryPlugin : BaseUnityPlugin
     {
         // if you do not change this, you are giving permission to deprecate the mod-

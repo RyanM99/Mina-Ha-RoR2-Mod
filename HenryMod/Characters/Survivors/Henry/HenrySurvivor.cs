@@ -14,7 +14,7 @@ namespace HenryMod.Survivors.Henry
     public class HenrySurvivor : SurvivorBase<HenrySurvivor>
     {
         //used to load the assetbundle for this character. must be unique
-        public override string assetBundleName => "myassetbundle"; //if you do not change this, you are giving permission to deprecate the mod
+        public override string assetBundleName => "minaha"; //if you do not change this, you are giving permission to deprecate the mod
 
         //the name of the prefab we will create. conventionally ending in "Body". must be unique
         public override string bodyName => "HenryBody"; //if you do not change this, you get the point by now
@@ -107,6 +107,7 @@ namespace HenryMod.Survivors.Henry
             HenryBuffs.Init(assetBundle);
 
             InitializeEntityStateMachines();
+            RakeEffects.Init();
             InitializeSkills();
             InitializeSkins();
             InitializeCharacterMaster();
@@ -218,7 +219,7 @@ namespace HenryMod.Survivors.Henry
 
             //the primary skill is created using a constructor for a typical primary
             //it is also a SteppedSkillDef. Custom Skilldefs are very useful for custom behaviors related to casting a skill. see ror2's different skilldefs for reference
-            SteppedSkillDef primarySkillDef1 = Skills.CreateSkillDef<SteppedSkillDef>(new SkillDefInfo
+            /*SteppedSkillDef primarySkillDef1 = Skills.CreateSkillDef<SteppedSkillDef>(new SkillDefInfo
                 (
                     "HenrySlash",
                     HENRY_PREFIX + "PRIMARY_SLASH_NAME",
@@ -230,7 +231,40 @@ namespace HenryMod.Survivors.Henry
                 ));
             //custom Skilldefs can have additional fields that you can set manually
             primarySkillDef1.stepCount = 2;
-            primarySkillDef1.stepGraceDuration = 0.5f;
+            primarySkillDef1.stepGraceDuration = 0.5f;*/
+
+            //here is a basic skill def with all fields accounted for
+            SkillDef primarySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "NewMoney",
+                skillNameToken = HENRY_PREFIX + "PRIMARY_GUN_NAME",
+                skillDescriptionToken = HENRY_PREFIX + "PRIMARY_GUN_DESCRIPTION",
+                keywordTokens = new string[] { "KEYWORD_AGILE" },
+                skillIcon = assetBundle.LoadAsset<Sprite>("texPistolIcon"),
+
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.NewMoney)),
+                activationStateMachineName = "Weapon",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+
+                baseRechargeInterval = 1.7f,
+                baseMaxStock = 12,
+
+                rechargeStock = 12,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+                resetCooldownTimerOnUse = true,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+                mustKeyPress = false,
+                beginSkillCooldownOnSkillEnd = false,
+
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+
+            });
 
             Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1);
         }
@@ -249,7 +283,7 @@ namespace HenryMod.Survivors.Henry
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Shoot)),
-                activationStateMachineName = "Weapon2",
+                activationStateMachineName = "Weapon",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
                 baseRechargeInterval = 1f,
@@ -318,7 +352,7 @@ namespace HenryMod.Survivors.Henry
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Special);
 
             //a basic skill. some fields are omitted and will just have default values
-            SkillDef specialSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
+            /*SkillDef specialSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "HenryBomb",
                 skillNameToken = HENRY_PREFIX + "SPECIAL_BOMB_NAME",
@@ -334,6 +368,24 @@ namespace HenryMod.Survivors.Henry
 
                 isCombatSkill = true,
                 mustKeyPress = false,
+            });*/
+
+            SkillDef specialSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "Rake",
+                skillNameToken = HENRY_PREFIX + "SPECIAL_RAKE_NAME",
+                skillDescriptionToken = HENRY_PREFIX + "SPECIAL_RAKE_DESCRIPTION",
+                skillIcon = assetBundle.LoadAsset<Sprite>("texStingerIcon"),
+
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Rake)),
+                //setting this to the "weapon2" EntityStateMachine allows us to cast this skill at the same time primary, which is set to the "weapon" EntityStateMachine
+                activationStateMachineName = "Weapon2", interruptPriority = EntityStates.InterruptPriority.Skill,
+
+                baseMaxStock = 1,
+                baseRechargeInterval = 10f,
+
+                isCombatSkill = true,
+                mustKeyPress = true,
             });
 
             Skills.AddSpecialSkills(bodyPrefab, specialSkillDef1);
